@@ -1,6 +1,0 @@
-{
-  "/api/exchange-rate/route": "app/api/exchange-rate/route.js",
-  "/page": "app/page.js",
-  "/how-to-order-poizon/page": "app/how-to-order-poizon/page.js",
-  "/alipay-how-to-use/page": "app/alipay-how-to-use/page.js"
-}
