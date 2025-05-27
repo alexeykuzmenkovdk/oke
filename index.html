@@ -1,0 +1,29 @@
+server {
+    listen 80;
+    server_name alipayfast.ru www.alipayfast.ru;
+
+    # Указываем путь к директории .next (она не должна обслуживаться напрямую)
+    root /var/www/alipayfast;
+
+    index index.html;
+
+    # Обрабатываем маршруты для SPA-приложения
+    location / {
+        try_files $uri $uri/ @next;
+    }
+
+    # Прокси на сервер Next.js, который работает на порту 3000
+    location @next {
+        proxy_pass http://localhost:3000;  # Прокси на сервер Next.js
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Логи
+    access_log /var/log/nginx/alipayfast.access.log;
+    error_log /var/log/nginx/alipayfast.error.log;
+}
+
